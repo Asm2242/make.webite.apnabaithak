@@ -1,12 +1,27 @@
-// Shared interactions
 (function () {
+  const STORAGE_KEY = 'mw_orders';
+
+  function loadOrders() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch (e) { return []; }
+  }
+  function saveOrders(list) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  }
+  function addOrder(order) {
+    const list = loadOrders();
+    order.id = Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+    order.date = new Date().toLocaleString();
+    order.status = order.status || 'New';
+    list.unshift(order);
+    saveOrders(list);
+  }
+
   const menuBtn = document.getElementById('menuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
   if (menuBtn && mobileMenu) {
     menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
   }
 
-  // Pricing totals + order buttons (if present)
   document.querySelectorAll('.plan-card').forEach(card => {
     const base = parseInt(card.dataset.base, 10);
     const totalEl = card.querySelector('.total');
@@ -22,18 +37,20 @@
     if (btn) {
       btn.addEventListener('click', () => {
         const selected = Array.from(addons).filter(cb => cb.checked).map(cb => cb.parentElement.textContent.trim());
-        showPopup(`Plan: ${card.dataset.plan}<br/>Total: ${totalEl.textContent}<br/>Add-ons: ${selected.length ? selected.join(', ') : 'None'}`);
+        const total = totalEl.textContent;
+        addOrder({ type: 'Plan Order', plan: card.dataset.plan, addons: selected, total: total });
+        showPopup(`Plan: ${card.dataset.plan}<br/>Total: ${total}<br/>Add-ons: ${selected.length ? selected.join(', ') : 'None'}<br/><span class="text-emerald-400">Saved to admin panel.</span>`);
       });
     }
   });
 
-  // Contact form
   const form = document.getElementById('consultForm');
   if (form) {
     form.addEventListener('submit', e => {
       e.preventDefault();
       const f = e.target;
-      showPopup(`Thank you ${f.name.value.trim()}!<br/>We'll call you at ${f.phone.value.trim()} shortly.<br/>Business: ${f.business.value.trim()}<br/>Plan: ${f.plan.value}`);
+      addOrder({ type: 'Consultation', name: f.name.value.trim(), phone: f.phone.value.trim(), business: f.business.value.trim(), plan: f.plan.value });
+      showPopup(`Thank you ${f.name.value.trim()}!<br/>We'll call you at ${f.phone.value.trim()} shortly.<br/>Business: ${f.business.value.trim()}<br/>Plan: ${f.plan.value}<br/><span class="text-emerald-400">Saved to admin panel.</span>`);
       f.reset();
     });
   }
