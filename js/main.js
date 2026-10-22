@@ -86,8 +86,8 @@
   const authModal = document.getElementById('authModal');
   function openAuth() { if (authModal) authModal.classList.remove('hidden'); }
   function closeAuth() { if (authModal) authModal.classList.add('hidden'); }
-  const authOpenBtn = document.getElementById('authOpenBtn');
-  if (authOpenBtn) authOpenBtn.addEventListener('click', openAuth);
+  const authOpenBtns = document.querySelectorAll('#authOpenBtn, .auth-open-btn');
+  authOpenBtns.forEach(b => b.addEventListener('click', openAuth));
   const authClose = document.getElementById('authClose');
   if (authClose) authClose.addEventListener('click', closeAuth);
   if (authModal) authModal.addEventListener('click', e => { if (e.target.id === 'authModal') closeAuth(); });
@@ -119,16 +119,16 @@
 
   function updateAuthUI() {
     const u = currentUser();
-    const openBtn = document.getElementById('authOpenBtn');
-    const lb = document.getElementById('logoutBtn');
+    const openBtns = document.querySelectorAll('#authOpenBtn, .auth-open-btn');
+    const lbs = document.querySelectorAll('#logoutBtn, .logout-btn');
     const userInfo = document.getElementById('userInfo');
     if (u) {
-      if (openBtn) openBtn.classList.add('hidden');
-      if (lb) lb.classList.remove('hidden');
+      openBtns.forEach(b => b.classList.add('hidden'));
+      lbs.forEach(b => b.classList.remove('hidden'));
       if (userInfo) { userInfo.classList.remove('hidden'); userInfo.textContent = u.name + ' (Credits: ₹' + (u.credits||0) + ', Code: ' + u.referralCode + ')'; }
     } else {
-      if (openBtn) openBtn.classList.remove('hidden');
-      if (lb) lb.classList.add('hidden');
+      openBtns.forEach(b => b.classList.remove('hidden'));
+      lbs.forEach(b => b.classList.add('hidden'));
       if (userInfo) userInfo.classList.add('hidden');
     }
   }
