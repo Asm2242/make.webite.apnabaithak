@@ -22,6 +22,10 @@
     menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
   }
 
+  let pendingOrder = null;
+  const orderModal = document.getElementById('orderModal');
+  const orderForm = document.getElementById('orderDetailsForm');
+
   document.querySelectorAll('.plan-card').forEach(card => {
     const base = parseInt(card.dataset.base, 10);
     const totalEl = card.querySelector('.total');
@@ -37,12 +41,39 @@
     if (btn) {
       btn.addEventListener('click', () => {
         const selected = Array.from(addons).filter(cb => cb.checked).map(cb => cb.parentElement.textContent.trim());
-        const total = totalEl.textContent;
-        addOrder({ type: 'Plan Order', plan: card.dataset.plan, addons: selected, total: total });
-        showPopup(`Plan: ${card.dataset.plan}<br/>Total: ${total}<br/>Add-ons: ${selected.length ? selected.join(', ') : 'None'}<br/><span class="text-emerald-400">Saved to admin panel.</span>`);
+        pendingOrder = { plan: card.dataset.plan, addons: selected, total: totalEl.textContent };
+        if (orderModal) {
+          orderModal.classList.remove('hidden');
+        } else {
+          const name = prompt('Enter your Full Name:');
+          const phone = prompt('Enter your Phone Number:');
+          if (name && phone) {
+            addOrder({ type: 'Plan Order', plan: pendingOrder.plan, addons: pendingOrder.addons, total: pendingOrder.total, name: name.trim(), phone: phone.trim() });
+            showPopup(`Plan: ${pendingOrder.plan}<br/>Total: ${pendingOrder.total}<br/>Add-ons: ${pendingOrder.addons.length ? pendingOrder.addons.join(', ') : 'None'}<br/>Name: ${name}<br/>Phone: ${phone}<br/><span class="text-emerald-400">Saved to admin panel.</span>`);
+          }
+        }
       });
     }
   });
+
+  if (orderForm) {
+    orderForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const f = e.target;
+      const name = f.name.value.trim();
+      const phone = f.phone.value.trim();
+      if (pendingOrder) {
+        addOrder({ type: 'Plan Order', plan: pendingOrder.plan, addons: pendingOrder.addons, total: pendingOrder.total, name: name, phone: phone });
+        showPopup(`Plan: ${pendingOrder.plan}<br/>Total: ${pendingOrder.total}<br/>Add-ons: ${pendingOrder.addons.length ? pendingOrder.addons.join(', ') : 'None'}<br/>Name: ${name}<br/>Phone: ${phone}<br/><span class="text-emerald-400">Saved to admin panel.</span>`);
+      }
+      orderForm.reset();
+      if (orderModal) orderModal.classList.add('hidden');
+      pendingOrder = null;
+    });
+  }
+  const orderClose = document.getElementById('orderModalClose');
+  if (orderClose) orderClose.addEventListener('click', () => { if (orderModal) orderModal.classList.add('hidden'); pendingOrder = null; });
+  if (orderModal) orderModal.addEventListener('click', e => { if (e.target.id === 'orderModal') { orderModal.classList.add('hidden'); pendingOrder = null; } });
 
   const form = document.getElementById('consultForm');
   if (form) {
