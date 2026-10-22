@@ -4,13 +4,22 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Make Websites — Apni Dukaan Ko Digital Banayein</title>
+<meta name="description" content="Fast, beautiful, mobile-first websites for your shop or business. Order today, go live in 48 hours." />
+<meta property="og:title" content="Make Websites" />
+<meta property="og:description" content="Apni Dukaan Ko Digital Banayein, Sales Double Karein!" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>" />
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   html { scroll-behavior: smooth; }
   .gradient-text { background: linear-gradient(to right, #3b82f6, #10b981); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  #progressBar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: linear-gradient(to right, #3b82f6, #10b981); z-index: 60; }
 </style>
+<link rel="manifest" href="manifest.json" />
 </head>
 <body class="bg-slate-900 text-slate-100 antialiased">
+
+<div id="progressBar"></div>
 
 <header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-900/80 backdrop-blur-md">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
@@ -48,28 +57,92 @@
   </div>
 </section>
 
+<!-- STATS -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    <div class="rounded-2xl bg-slate-800/40 border border-slate-700 p-6"><div class="text-3xl font-extrabold gradient-text counter" data-target="500">0</div><div class="text-slate-400 text-sm mt-1">Shops Launched</div></div>
+    <div class="rounded-2xl bg-slate-800/40 border border-slate-700 p-6"><div class="text-3xl font-extrabold gradient-text counter" data-target="48">0</div><div class="text-slate-400 text-sm mt-1">Hour Delivery</div></div>
+    <div class="rounded-2xl bg-slate-800/40 border border-slate-700 p-6"><div class="text-3xl font-extrabold gradient-text counter" data-target="99">0</div><div class="text-slate-400 text-sm mt-1">% Satisfaction</div></div>
+    <div class="rounded-2xl bg-slate-800/40 border border-slate-700 p-6"><div class="text-3xl font-extrabold gradient-text counter" data-target="24">0</div><div class="text-slate-400 text-sm mt-1">/7 Support</div></div>
+  </div>
+</section>
+
+<!-- WHY -->
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
   <div class="text-center mb-12">
     <h2 class="text-3xl md:text-4xl font-bold mb-3">Why Choose Us</h2>
     <p class="text-slate-400">Everything your shop needs to sell more, online.</p>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <div class="rounded-2xl bg-slate-800/60 border border-slate-700 p-7">
-      <div class="text-3xl mb-3">⚡</div>
-      <h3 class="font-bold mb-2">48-Hour Delivery</h3>
-      <p class="text-slate-400 text-sm">From order to live site in just 2 days.</p>
-    </div>
-    <div class="rounded-2xl bg-slate-800/60 border border-slate-700 p-7">
-      <div class="text-3xl mb-3">📱</div>
-      <h3 class="font-bold mb-2">Mobile-First</h3>
-      <p class="text-slate-400 text-sm">Looks perfect on every phone and screen.</p>
-    </div>
-    <div class="rounded-2xl bg-slate-800/60 border border-slate-700 p-7">
-      <div class="text-3xl mb-3">💬</div>
-      <h3 class="font-bold mb-2">WhatsApp Ready</h3>
-      <p class="text-slate-400 text-sm">Customers reach you in one tap.</p>
-    </div>
+    <div class="rounded-2xl bg-slate-800/60 border border-slate-700 p-7 hover:border-blue-500 transition"><div class="text-3xl mb-3">⚡</div><h3 class="font-bold mb-2">48-Hour Delivery</h3><p class="text-slate-400 text-sm">From order to live site in just 2 days.</p></div>
+    <div class="rounded-2xl bg-slate-800/60 border border-slate-700 p-7 hover:border-blue-500 transition"><div class="text-3xl mb-3">📱</div><h3 class="font-bold mb-2">Mobile-First</h3><p class="text-slate-400 text-sm">Looks perfect on every phone and screen.</p></div>
+    <div class="rounded-2xl bg-slate-800/60 border border-slate-700 p-7 hover:border-blue-500 transition"><div class="text-3xl mb-3">💬</div><h3 class="font-bold mb-2">WhatsApp Ready</h3><p class="text-slate-400 text-sm">Customers reach you in one tap.</p></div>
   </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold mb-3">Recent Work</h2>
+    <p class="text-slate-400">A glimpse of stores we've launched.</p>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="rounded-2xl overflow-hidden border border-slate-700 bg-slate-800/40"><div class="h-40 bg-gradient-to-br from-blue-600 to-emerald-500"></div><div class="p-4"><h3 class="font-bold">Kirana Store</h3><p class="text-slate-400 text-sm">Grocery ordering site</p></div></div>
+    <div class="rounded-2xl overflow-hidden border border-slate-700 bg-slate-800/40"><div class="h-40 bg-gradient-to-br from-purple-600 to-pink-500"></div><div class="p-4"><h3 class="font-bold">Beauty Salon</h3><p class="text-slate-400 text-sm">Booking & services</p></div></div>
+    <div class="rounded-2xl overflow-hidden border border-slate-700 bg-slate-800/40"><div class="h-40 bg-gradient-to-br from-orange-500 to-red-500"></div><div class="p-4"><h3 class="font-bold">Restaurant</h3><p class="text-slate-400 text-sm">Menu & WhatsApp orders</p></div></div>
+    <div class="rounded-2xl overflow-hidden border border-slate-700 bg-slate-800/40"><div class="h-40 bg-gradient-to-br from-teal-500 to-cyan-500"></div><div class="p-4"><h3 class="font-bold">Clothing Boutique</h3><p class="text-slate-400 text-sm">Catalog & payments</p></div></div>
+    <div class="rounded-2xl overflow-hidden border border-slate-700 bg-slate-800/40"><div class="h-40 bg-gradient-to-br from-yellow-500 to-amber-600"></div><div class="p-4"><h3 class="font-bold">Coaching Center</h3><p class="text-slate-400 text-sm">Courses & enrollment</p></div></div>
+    <div class="rounded-2xl overflow-hidden border border-slate-700 bg-slate-800/40"><div class="h-40 bg-gradient-to-br from-indigo-500 to-blue-700"></div><div class="p-4"><h3 class="font-bold">Electronics Shop</h3><p class="text-slate-400 text-sm">Product showcase</p></div></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold mb-3">How It Works</h2>
+    <p class="text-slate-400">From idea to live site in 4 simple steps.</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div class="text-center"><div class="w-12 h-12 mx-auto rounded-full bg-blue-600 flex items-center justify-center font-bold mb-3">1</div><h3 class="font-bold mb-1">Choose Plan</h3><p class="text-slate-400 text-sm">Pick Plus, Pro or Premium.</p></div>
+    <div class="text-center"><div class="w-12 h-12 mx-auto rounded-full bg-blue-600 flex items-center justify-center font-bold mb-3">2</div><h3 class="font-bold mb-1">Share Content</h3><p class="text-slate-400 text-sm">Send logo, text & photos.</p></div>
+    <div class="text-center"><div class="w-12 h-12 mx-auto rounded-full bg-blue-600 flex items-center justify-center font-bold mb-3">3</div><h3 class="font-bold mb-1">We Build</h3><p class="text-slate-400 text-sm">Review & request changes.</p></div>
+    <div class="text-center"><div class="w-12 h-12 mx-auto rounded-full bg-emerald-500 flex items-center justify-center font-bold mb-3">4</div><h3 class="font-bold mb-1">Go Live</h3><p class="text-slate-400 text-sm">Live in 48 hours.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold mb-3">What Clients Say</h2>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="rounded-2xl bg-slate-800/60 border border-slate-700 p-6"><p class="text-slate-300 text-sm mb-4">"Sales doubled in a month after going online!"</p><div class="font-bold text-sm">Ramesh K.</div><div class="text-slate-500 text-xs">Kirana Store</div></div>
+    <div class="rounded-2xl bg-slate-800/60 border border-slate-700 p-6"><p class="text-slate-300 text-sm mb-4">"Beautiful site, delivered in 2 days. Highly recommended."</p><div class="font-bold text-sm">Priya S.</div><div class="text-slate-500 text-xs">Salon Owner</div></div>
+    <div class="rounded-2xl bg-slate-800/60 border border-slate-700 p-6"><p class="text-slate-300 text-sm mb-4">"WhatsApp orders increased 3x. Great support."</p><div class="font-bold text-sm">Amit V.</div><div class="text-slate-500 text-xs">Restaurant</div></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold mb-3">FAQ</h2>
+  </div>
+  <div class="space-y-3">
+    <details class="rounded-xl bg-slate-800/60 border border-slate-700 p-4"><summary class="cursor-pointer font-semibold">How long does delivery take?</summary><p class="text-slate-400 text-sm mt-2">Usually within 48 hours after receiving your content.</p></details>
+    <details class="rounded-xl bg-slate-800/60 border border-slate-700 p-4"><summary class="cursor-pointer font-semibold">Do I need technical knowledge?</summary><p class="text-slate-400 text-sm mt-2">No, we handle everything. You just share content.</p></details>
+    <details class="rounded-xl bg-slate-800/60 border border-slate-700 p-4"><summary class="cursor-pointer font-semibold">Is hosting included?</summary><p class="text-slate-400 text-sm mt-2">Premium includes 1 year free hosting. Others can add.</p></details>
+    <details class="rounded-xl bg-slate-800/60 border border-slate-700 p-4"><summary class="cursor-pointer font-semibold">Can I update content later?</summary><p class="text-slate-400 text-sm mt-2">Yes, we offer easy updates on request.</p></details>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+  <h2 class="text-2xl font-bold mb-3">Get Tips & Offers</h2>
+  <p class="text-slate-400 text-sm mb-6">Subscribe to our newsletter.</p>
+  <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3">
+    <input required type="email" name="email" placeholder="your@email.com" class="flex-1 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 focus:border-blue-500 focus:outline-none text-white" />
+    <button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 text-white font-semibold transition">Subscribe</button>
+  </form>
 </section>
 
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
@@ -83,7 +156,36 @@
 
 <footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500">
   © 2026 Make Websites · make-websites.apnabaithak.com · <a href="admin.html" class="text-slate-600 hover:text-slate-400">Admin</a>
+  <div class="mt-3 flex justify-center gap-4 text-slate-400">
+    <a href="https://wa.me/917081548181" target="_blank" rel="noopener" class="hover:text-white">WhatsApp</a>
+    <a href="mailto:abhigyansingh7676@gmail.com" class="hover:text-white">Email</a>
+    <a href="tel:+917081548181" class="hover:text-white">Call</a>
+  </div>
 </footer>
+
+<!-- Back to top -->
+<button id="backToTop" class="hidden fixed bottom-6 right-6 w-11 h-11 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-500 transition z-40">↑</button>
+
+<!-- Cookie banner -->
+<div id="cookieBanner" class="hidden fixed bottom-0 inset-x-0 bg-slate-800 border-t border-slate-700 p-4 z-50">
+  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+    <p class="text-slate-300">We use cookies to improve your experience.</p>
+    <div class="flex gap-2">
+      <button id="cookieAccept" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition">Accept</button>
+      <button id="cookieDecline" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-white transition">Decline</button>
+    </div>
+  </div>
+</div>
+
+<!-- Live chat widget -->
+<div id="chatWidget" class="fixed bottom-6 left-6 z-40">
+  <button id="chatToggle" class="w-12 h-12 rounded-full bg-emerald-600 text-white shadow-lg hover:bg-emerald-500 transition">💬</button>
+  <div id="chatBox" class="hidden absolute bottom-16 left-0 w-72 rounded-2xl bg-slate-800 border border-slate-700 shadow-2xl overflow-hidden">
+    <div class="bg-emerald-600 px-4 py-3 font-semibold">Live Chat</div>
+    <div class="p-4 text-sm text-slate-300">Hi! 👋 Need a website? WhatsApp us or leave a message.</div>
+    <a href="https://wa.me/917081548181" target="_blank" rel="noopener" class="block m-4 text-center py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition">Chat on WhatsApp</a>
+  </div>
+</div>
 
 <div id="popup" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
   <div class="w-full max-w-md rounded-2xl bg-slate-800 border border-slate-700 p-8 shadow-2xl">
@@ -95,5 +197,50 @@
 </div>
 
 <script src="js/main.js"></script>
+<script>
+  // Scroll progress + back-to-top
+  const bar = document.getElementById('progressBar');
+  const btt = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = pct + '%';
+    btt.classList.toggle('hidden', h.scrollTop < 300);
+  });
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Counters
+  const counters = document.querySelectorAll('.counter');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target; const target = +el.dataset.target; let cur = 0;
+        const step = Math.ceil(target / 60);
+        const t = setInterval(() => { cur += step; if (cur >= target) { cur = target; clearInterval(t); } el.textContent = cur + (target === 99 ? '%' : target === 24 ? '/7' : '+'); }, 30);
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(c => obs.observe(c));
+
+  // Cookie banner
+  if (!localStorage.getItem('cookieChoice')) document.getElementById('cookieBanner').classList.remove('hidden');
+  document.getElementById('cookieAccept').addEventListener('click', () => { localStorage.setItem('cookieChoice','accepted'); document.getElementById('cookieBanner').classList.add('hidden'); });
+  document.getElementById('cookieDecline').addEventListener('click', () => { localStorage.setItem('cookieChoice','declined'); document.getElementById('cookieBanner').classList.add('hidden'); });
+
+  // Chat toggle
+  document.getElementById('chatToggle').addEventListener('click', () => document.getElementById('chatBox').classList.toggle('hidden'));
+
+  // Newsletter
+  document.getElementById('newsletterForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = e.target.email.value.trim();
+    const list = JSON.parse(localStorage.getItem('mw_newsletter') || '[]');
+    if (!list.includes(email)) list.push(email);
+    localStorage.setItem('mw_newsletter', JSON.stringify(list));
+    alert('Subscribed: ' + email);
+    e.target.reset();
+  });
+</script>
 </body>
 </html>

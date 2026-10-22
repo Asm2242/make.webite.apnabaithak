@@ -4,11 +4,20 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Admin — Make Websites</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com">
+  function renderSubs() {
+    const list = JSON.parse(localStorage.getItem('mw_newsletter') || '[]');
+    const ul = document.getElementById('subsList');
+    ul.innerHTML = '';
+    list.forEach(e => { const li = document.createElement('li'); li.textContent = e; ul.appendChild(li); });
+    document.getElementById('subsEmpty').classList.toggle('hidden', list.length !== 0);
+  }
+</script>
 <style>
   html { scroll-behavior: smooth; }
   .gradient-text { background: linear-gradient(to right, #3b82f6, #10b981); -webkit-background-clip: text; background-clip: text; color: transparent; }
 </style>
+<link rel="manifest" href="manifest.json" />
 </head>
 <body class="bg-slate-900 text-slate-100 antialiased">
 
@@ -80,6 +89,11 @@
       </table>
     </div>
     <p id="emptyMsg" class="text-center text-slate-500 mt-6 hidden">No orders yet.</p>
+    <div class="mt-10 rounded-2xl border border-slate-700 p-6">
+      <h2 class="text-xl font-bold mb-3">Newsletter Subscribers</h2>
+      <ul id="subsList" class="text-sm text-slate-300 space-y-1"></ul>
+      <p id="subsEmpty" class="text-slate-500 text-sm hidden">No subscribers yet.</p>
+    </div>
   </div>
 </main>
 
@@ -139,6 +153,7 @@
     document.getElementById('statConsult').textContent = orders.filter(o => o.type === 'Consultation').length;
     document.getElementById('statPlan').textContent = orders.filter(o => o.type === 'Plan Order').length;
     document.getElementById('emptyMsg').classList.toggle('hidden', orders.length !== 0);
+    renderSubs();
 
     document.querySelectorAll('.statusSel').forEach(sel => {
       sel.addEventListener('change', e => {
