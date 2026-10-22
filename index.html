@@ -167,6 +167,28 @@
   </div>
 </section>
 
+
+<!-- TRUST BADGES -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="flex flex-wrap items-center justify-center gap-6 text-slate-400 text-sm">
+    <span class="px-4 py-2 rounded-full border border-slate-700">🔒 Secure Payments</span>
+    <span class="px-4 py-2 rounded-full border border-slate-700">⚡ 48h Fast Delivery</span>
+    <span class="px-4 py-2 rounded-full border border-slate-700">💬 WhatsApp Support</span>
+    <span class="px-4 py-2 rounded-full border border-slate-700">✅ 500+ Happy Clients</span>
+    <span class="px-4 py-2 rounded-full border border-slate-700">🇮🇳 Made in India</span>
+  </div>
+</section>
+
+<!-- REFERRAL -->
+<section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+  <h2 class="text-2xl font-bold mb-3">Refer & Earn</h2>
+  <p class="text-slate-400 text-sm mb-6">Share your referral code. Get ₹500 off your next order for every friend who orders.</p>
+  <div class="flex flex-col sm:flex-row gap-3 justify-center">
+    <input id="refCode" readonly value="REF-MAKE-100" class="px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-center" />
+    <button id="copyRef" class="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 text-white font-semibold transition">Copy Code</button>
+  </div>
+</section>
+
 <footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500">
   © 2026 Make Websites · make-websites.apnabaithak.com · <a href="admin.html" class="text-slate-600 hover:text-slate-400">Admin</a>
   <div class="mt-3 flex justify-center gap-4 text-slate-400">
@@ -255,5 +277,50 @@
     e.target.reset();
   });
 </script>
-</body>
+
+<!-- Exit-intent popup -->
+<div id="exitPopup" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
+  <div class="w-full max-w-md rounded-2xl bg-slate-800 border border-slate-700 p-8 shadow-2xl text-center">
+    <h3 class="text-2xl font-bold mb-2">Wait! Get 10% Off 🎉</h3>
+    <p class="text-slate-300 mb-4">Use code <span class="font-bold text-emerald-400">WELCOME10</span> on your first order.</p>
+    <a href="pricing.html" class="block w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 text-white font-bold transition mb-3">Claim Discount</a>
+    <button id="exitClose" class="text-slate-400 text-sm hover:text-white">No thanks</button>
+  </div>
+</div>
+
+<!-- Social proof toast -->
+<div id="socialToast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 shadow-2xl text-sm z-50">
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+  // Copy referral
+  document.getElementById('copyRef').addEventListener('click', () => {
+    const v = document.getElementById('refCode').value;
+    navigator.clipboard.writeText(v).then(() => alert('Copied: ' + v));
+  });
+
+  // Exit intent
+  let exitShown = false;
+  document.addEventListener('mouseleave', e => {
+    if (e.clientY < 10 && !exitShown && !sessionStorage.getItem('exitShown')) {
+      exitShown = true; sessionStorage.setItem('exitShown','1');
+      document.getElementById('exitPopup').classList.remove('hidden');
+    }
+  });
+  document.getElementById('exitClose').addEventListener('click', () => document.getElementById('exitPopup').classList.add('hidden'));
+
+  // Social proof toast
+  const msgs = ['Ramesh from Delhi just ordered Pro plan','Priya from Mumbai subscribed to newsletter','Amit from Jaipur upgraded to Premium','Sunita from Lucknow requested consultation'];
+  let ti = 0;
+  function showToast() {
+    const t = document.getElementById('socialToast');
+    document.getElementById('toastMsg').textContent = msgs[ti % msgs.length];
+    t.classList.remove('hidden');
+    setTimeout(() => t.classList.add('hidden'), 4000);
+    ti++;
+  }
+  setTimeout(() => { showToast(); setInterval(showToast, 12000); }, 5000);
+</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script></body>
 </html>
