@@ -5,16 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Admin — Make Websites</title>
 <script src="https://cdn.tailwindcss.com">
-  function renderSubs() {
-    const list = JSON.parse(localStorage.getItem('mw_newsletter') || '[]');
+  async function renderSubs() {
+    const list = await (window.MW ? window.MW.loadNewsletter() : Promise.resolve([]));
+    const emails = list.map(x => x.email || x);
     const ul = document.getElementById('subsList');
     ul.innerHTML = '';
-    list.forEach(e => { const li = document.createElement('li'); li.textContent = e; ul.appendChild(li); });
+    emails.forEach(e => { const li = document.createElement('li'); li.textContent = e; ul.appendChild(li); });
     document.getElementById('subsEmpty').classList.toggle('hidden', list.length !== 0);
   }
 
-  function renderUsers() {
-    const users = JSON.parse(localStorage.getItem('mw_users') || '[]');
+  async function renderUsers() {
+    const users = await (window.MW ? window.MW.loadUsers() : Promise.resolve(JSON.parse(localStorage.getItem('mw_users')||'[]')));
     const tbody = document.getElementById('usersBody');
     tbody.innerHTML = '';
     users.forEach(u => {
@@ -125,8 +126,8 @@
   const PASS = 'admin123';
   const KEY = 'mw_orders';
 
-  function loadOrders() { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { return []; } }
-  function saveOrders(list) { localStorage.setItem(KEY, JSON.stringify(list)); }
+  async function loadOrders() { return await (window.MW ? window.MW.loadOrders() : Promise.resolve(JSON.parse(localStorage.getItem(KEY)||'[]'))); }
+  async function saveOrders(list) { /* server is source of truth */ }
 
   const loginBtn = document.getElementById('loginBtn');
   loginBtn.addEventListener('click', () => {
@@ -141,8 +142,8 @@
   });
   document.getElementById('adminPass').addEventListener('keydown', e => { if (e.key === 'Enter') loginBtn.click(); });
 
-  function render() {
-    const orders = loadOrders();
+  async function render() {
+    const orders = await loadOrders();
     const tbody = document.getElementById('ordersBody');
     tbody.innerHTML = '';
     orders.forEach(o => {
@@ -178,32 +179,35 @@
     document.getElementById('statConsult').textContent = orders.filter(o => o.type === 'Consultation').length;
     document.getElementById('statPlan').textContent = orders.filter(o => o.type === 'Plan Order').length;
     document.getElementById('emptyMsg').classList.toggle('hidden', orders.length !== 0);
-    renderSubs();
-    renderUsers();
+    await renderSubs();
+    await renderUsers();
 
     document.querySelectorAll('.statusSel').forEach(sel => {
       sel.addEventListener('change', e => {
         const id = e.target.dataset.id;
-        const list = loadOrders();
-        const item = list.find(x => x.id === id);
-        if (item) { item.status = e.target.value; saveOrders(list); render(); }
+        try { await fetch('/api/orders', { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ id, status: e.target.value }) }); } catch(e){}
+        render();
       });
     });
     document.querySelectorAll('.delBtn').forEach(btn => {
       btn.addEventListener('click', e => {
         const id = e.target.dataset.id;
-        saveOrders(loadOrders().filter(x => x.id !== id));
+        try { await fetch('/api/orders?id=' + encodeURIComponent(id), { method:'DELETE' }); } catch(e){}
         render();
       });
     });
   }
 
   document.getElementById('clearBtn').addEventListener('click', () => {
-    if (confirm('Clear all orders?')) { saveOrders([]); render(); }
+    if (confirm('Clear all orders? (deletes in DB)')) {
+      const ords = await loadOrders();
+      for (const o of ords) { try { await fetch('/api/orders?id=' + encodeURIComponent(o.id), { method:'DELETE' }); } catch(e){} }
+      render();
+    }
   });
 
-  document.getElementById('exportBtn').addEventListener('click', () => {
-    const orders = loadOrders();
+  document.getElementById('exportBtn').addEventListener('click', async () => {
+    const orders = await loadOrders();
     const headers = ['Date','Type','Plan','Name','Phone','Business','Addons','Total','Status'];
     const rows = orders.map(o => [o.date,o.type,o.plan,o.name,o.phone,o.business,(o.addons||[]).join('; '),o.total,o.status].map(v => `"${(v||'').replace(/"/g,'""')}"`).join(','));
     const csv = [headers.join(','), ...rows].join('\n');
@@ -214,5 +218,6 @@
     URL.revokeObjectURL(url);
   });
 </script>
+<script src="js/main.js"></script>
 </body>
 </html>
