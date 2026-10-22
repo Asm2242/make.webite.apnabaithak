@@ -42,6 +42,9 @@
       <a href="pricing.html" class="hover:text-white transition">Pricing</a>
       <a href="about.html" class="hover:text-white transition">About</a>
       <a href="contact.html" class="hover:text-white transition">Contact</a>
+      <span id="userInfo" class="hidden text-xs text-emerald-400"></span>
+      <button id="authOpenBtn" class="px-4 py-2 rounded-full bg-slate-700 hover:bg-slate-600 text-white transition">Login</button>
+      <button id="logoutBtn" class="hidden px-4 py-2 rounded-full bg-red-600 hover:bg-red-500 text-white transition">Logout</button>
       <a href="tel:+917081548181" class="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white transition">Call Now</a>
     </nav>
     <button id="menuBtn" class="md:hidden text-slate-300" aria-label="Menu">
@@ -219,6 +222,31 @@
     <div class="bg-emerald-600 px-4 py-3 font-semibold">Live Chat</div>
     <div class="p-4 text-sm text-slate-300">Hi! 👋 Need a website? WhatsApp us or leave a message.</div>
     <a href="https://wa.me/917081548181" target="_blank" rel="noopener" class="block m-4 text-center py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition">Chat on WhatsApp</a>
+  </div>
+</div>
+
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
+  <div class="w-full max-w-md rounded-2xl bg-slate-800 border border-slate-700 p-8 shadow-2xl">
+    <div class="flex gap-2 mb-4">
+      <button id="loginTab" class="flex-1 py-2 rounded-lg bg-blue-600 text-white font-semibold">Login</button>
+      <button id="registerTab" class="flex-1 py-2 rounded-lg bg-slate-700 text-white font-semibold">Register</button>
+    </div>
+    <form id="loginForm" class="space-y-3">
+      <input required name="email" type="email" placeholder="Email" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 focus:border-blue-500 focus:outline-none text-white" />
+      <input required name="password" type="password" placeholder="Password" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 focus:border-blue-500 focus:outline-none text-white" />
+      <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 text-white font-bold transition">Login</button>
+    </form>
+    <form id="registerForm" class="space-y-3 hidden">
+      <input required name="name" type="text" placeholder="Full Name" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 focus:border-blue-500 focus:outline-none text-white" />
+      <input required name="email" type="email" placeholder="Email" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 focus:border-blue-500 focus:outline-none text-white" />
+      <input required name="phone" type="tel" placeholder="Phone" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 focus:border-blue-500 focus:outline-none text-white" />
+      <input required name="password" type="password" placeholder="Password" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 focus:border-blue-500 focus:outline-none text-white" />
+      <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 text-white font-bold transition">Register</button>
+    </form>
+    <button id="skipLoginBtn" class="w-full mt-3 py-2 text-slate-400 text-sm hover:text-white">Continue as Guest</button>
+    <button id="authClose" class="w-full mt-2 py-2 text-slate-400 text-sm hover:text-white">Close</button>
   </div>
 </div>
 
